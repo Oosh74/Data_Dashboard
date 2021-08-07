@@ -137,7 +137,7 @@ function Dashboard(props) {
   */
   useEffect(() => {
     props.getSchoolData();
-  }, []); //[] prevents useEffect from constantly updating.
+  }, []);
 
   //These two functions control the opening and closing of side menu
   const handleDrawerOpen = () => {
@@ -149,17 +149,9 @@ function Dashboard(props) {
 
   //Function for saving page as PDF.
   const pageToPdf = () => {
-    //Grabs div to capture
-    const input = document.getElementById('divToPrint');
-    html2canvas(input).then((canvas) => {
-      //converts page to img
-      const img = canvas.toDataURL('image/png');
-      //creates new PDF
-      const pdf = new jsPDF('p', 'mm', [window.innerWidth, window.innerHeight]);
-      //Adds image to PDF
-      pdf.addImage(img, 'JPEG', 0, 0);
-      //saves the image as PDF
-      pdf.save('download.pdf');
+    // const input = document.getElementById('divToPrint');
+    html2canvas(document.querySelector('#divToPrint')).then((canvas) => {
+      document.body.appendChild(canvas);
     });
   };
 
